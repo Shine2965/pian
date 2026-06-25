@@ -122,7 +122,6 @@ async function cekPesan(){
 
 
 
-    // Tampilkan lebih dari 2 alert secara berurutan
     for(const alert of alerts){
       await Swal.fire({
         title:alert.title,
@@ -137,15 +136,11 @@ async function cekPesan(){
 
 window.addEventListener("load",showUserBubble);
 
-                  // 1. SKRIP MENYIMPAN REFERRAL CODE DARI URL
-        function simpanReferral() {
-            // Mengambil semua parameter yang ada di URL
+            function simpanReferral() {
             const urlParams = new URLSearchParams(window.location.search);
             
-            // Mengambil nilai dari parameter 'ref'
             const referralCode = urlParams.get('ref');
 
-            // Jika parameter 'ref' ditemukan di URL, simpan ke localStorage
             if (referralCode) {
                 localStorage.setItem('referral_code', referralCode);
                 console.log('Referral code berhasil disimpan: ' + referralCode);
@@ -156,10 +151,8 @@ window.addEventListener("load",showUserBubble);
 
         // 2. SKRIP MENGAMBIL DATA REFERRAL DARI LOCALSTORAGE
         function ambilReferral() {
-            // Membaca data dari localStorage
             const savedRef = localStorage.getItem('referral_code');
             
-            // Menampilkan data ke elemen HTML
             const statusElement = document.getElementById('status-ref');
             if (savedRef) {
                 statusElement.innerHTML = `Terdeteksi! Kode referral Anda adalah: <strong>${savedRef}</strong>`;
@@ -185,7 +178,6 @@ document.addEventListener("keydown", function(e){
   if(e.ctrlKey && e.key === "u") e.preventDefault();
 });
 
-// Deteksi DevTools (lebih aman, tidak pakai resize hack)
 setInterval(() => {
   const threshold = 160;
   if (window.devtoolsOpen) return;
