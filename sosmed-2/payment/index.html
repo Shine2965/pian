@@ -126,6 +126,7 @@ checkUserBan();
 <button id="confirmBtn" class="btn">Konfirmasi Pembayaran</button><div class="muted">Admin memproses maksimal 72 jam</div>
   <p>Screenshot seluruh transaksi serta bukti transfer untuk berjaga jaga jika terdapat kendala anda bisa menghubungi admin melalui telegram atau discord</p>
 </div><script>
+  
 const discordWebhook = "https://discord.com/api/webhooks/1519697935468593394/6rc3sbkIwSXSwn5hukxSS_ZHcZ8Gpb65EmEWL7R0PznZCvlUHhX2fedcPRose29LNNKC";
 const discordWebhookTransaksi = "https://discord.com/api/webhooks/1519697935468593394/6rc3sbkIwSXSwn5hukxSS_ZHcZ8Gpb65EmEWL7R0PznZCvlUHhX2fedcPRose29LNNKC";
 
@@ -281,6 +282,35 @@ function ambilReferral() {
 }
 ambilReferral();
 
+async function securityCheck() {
+  try {
+    const res = await fetch("/api/security");
+
+    if (!res.ok) {
+      document.body.innerHTML =
+      "<h1 style='text-align:center;color:red;margin-top:40vh'>🚫 Akses Ditolak</h1>";
+      return;
+    }
+
+    const data = await res.json();
+
+    if (data.status !== "ok") {
+      document.body.innerHTML =
+      "<h1 style='text-align:center;color:red;margin-top:40vh'>🚫 IP Diblokir</h1>";
+      return;
+    }
+
+    console.log("Security OK", data.ip);
+
+  } catch (e) {
+    document.body.innerHTML =
+    "<h1 style='text-align:center;color:red;margin-top:40vh'>Server Error</h1>";
+  }
+}
+
+securityCheck();
+
+  
 document.addEventListener("keydown", function(e){
   // F12
   if(e.key === "F12") e.preventDefault();
